@@ -1,7 +1,5 @@
 #!/bin/bash
 #
-echo "umask $UMASK" >> $UDIR/.bashrc
-#
 sudo rsyslogd
 sudo cron
 sudo touch /var/log/cron.log
