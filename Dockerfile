@@ -15,10 +15,10 @@ RUN sed -i 's/security.ubuntu.com/mirrors.tuna.tsinghua.edu.cn/g' /etc/apt/sourc
 
 ENV UID=1000
 ENV GID=1000
-ENV USER_NAME=app
-ENV USER_PASS=passwd
-ENV USER_DIR=/home/$USER_NAME
-ENV UMASK_SET=000
+ENV UNAME=app
+ENV UPASS=passwd
+ENV UDIR=/home/$USER_NAME
+ENV UMASK=000
 
 ENV LANG=zh_CN.UTF-8
 ENV LANGUAGE=zh_CN:zh
@@ -32,17 +32,17 @@ RUN echo LANG=$LANG > /etc/default/locale && \
     locale-gen $LANG && \
     update-locale $LANG && \
     ln -fs /usr/share/zoneinfo/$TZ /etc/localtime && dpkg-reconfigure -f noninteractive tzdata && \
-    useradd -s /bin/bash -K UMASK=$UMASK_SET -md $USER_DIR $USER_NAME && \
-    echo "$USER_NAME:$USER_PASS" | chpasswd && \
-    echo "$USER_NAME ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers && \
+    useradd -s /bin/bash -K UMASK=$UMASK -md $UDIR $UNAME && \
+    echo "$UNAME:$UPASS" | chpasswd && \
+    echo "$UNAME ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers && \
     apt-get -y autoclean && apt-get -y autoremove --purge && \
     apt-get -y purge $(dpkg --get-selections | grep deinstall | sed s/deinstall//g) && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
     rm -rf /var/cache/* /root/sources/*
 
-USER $USER_NAME
+USER $UNAME
 
-WORKDIR $USER_DIR
+WORKDIR $UDIR
 
 ADD start.sh /start.sh
 

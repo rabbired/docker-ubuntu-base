@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-echo "umask $UMASK_SET" >> /home/app/.bashrc
+echo "umask $UMASK" >> $UDIR/.bashrc
 #
 sudo rsyslogd
 sudo cron
