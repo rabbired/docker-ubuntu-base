@@ -11,14 +11,14 @@ RUN sed -i 's/security.ubuntu.com/mirrors.tuna.tsinghua.edu.cn/g' /etc/apt/sourc
     apt-get install -yqq locales \
         software-properties-common \
         sudo tzdata ca-certificates \
-        curl wget nano rsyslog
+        curl wget nano rsyslog inotify-tools
 
 ENV UID=1000
 ENV GID=1000
 ENV UNAME=app
 ENV UPASS=passwd
 ENV UDIR=/home/$UNAME
-ENV UMASK=000
+ENV UMASK=022
 
 ENV LANG=zh_CN.UTF-8
 ENV LANGUAGE=zh_CN:zh
